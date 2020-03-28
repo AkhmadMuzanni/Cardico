@@ -42,11 +42,18 @@ data_train = data_train.drop(data_train[data_train.ap_lo > 200].index)
 
 # Get target label
 label = data_train["cardio"]
+
 # Drop target label and convert to numpy array
 data_train = data_train.drop("cardio", 1)
 label = np.array(label)
 data_train = np.array(data_train)
 
-# Normalization Process
+# Min-Max Normalization Process
 max_vals = np.max(data_train, 0)
 data_train = data_train / max_vals
+
+# Split Train and Test
+X_train, x_test, Y_train, y_test = train_test_split(data_train, label, test_size=0.3) # 30% data test
+print("Train shape:", X_train.shape)
+print("Test shape:", x_test.shape)
+
