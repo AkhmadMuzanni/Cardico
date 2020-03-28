@@ -57,3 +57,41 @@ X_train, x_test, Y_train, y_test = train_test_split(data_train, label, test_size
 print("Train shape:", X_train.shape)
 print("Test shape:", x_test.shape)
 
+# Build Multi Layer Perceptron (MLP) Model
+# Initialize Parameter
+input_dim = X_train.shape[1] # jumlah atribut
+output_dim = 1 # menghasilkan output binary
+lr = 0.0001
+optimizer = RMSprop(learning_rate=lr)
+batch_size = 512
+epochs = 150
+
+# Build Model
+model = Sequential([
+          # Dense layer with 100 neuron, input shape and relu activation function
+          Dense(100, input_shape=(input_dim,), activation='relu'),
+          # Dropout layer with 0.5 probability
+          Dropout(0.5),
+          # Dense layer with 200 neuron and relu activation function
+          Dense(200, activation='relu'),
+          # Dropout layer with 0.5 probability
+          Dropout(0.5),
+          # Dense layer with 100 neuron and relu activation function
+          Dense(100, activation='relu'),
+          # Dropout layer with 0.5 probability
+          Dropout(0.5),
+          # Dense layer with 100 neuron and sigmoid activation function
+          Dense(output_dim, activation='sigmoid')
+], name="cardionet")
+
+# Visualize Model
+plot_model(model,
+           to_file=model.name+'.png',
+           show_shapes=True,
+           show_layer_names=False,
+           rankdir='LR',
+           dpi=70
+          )
+
+model.summary()
+model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
