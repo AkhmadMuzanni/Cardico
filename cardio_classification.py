@@ -39,3 +39,14 @@ data_train = data_train.drop(data_train[data_train.height > 220].index)
 data_train = data_train.drop(data_train[data_train.ap_hi > 250].index)
 # delete diastolic blood pressure value that above 200
 data_train = data_train.drop(data_train[data_train.ap_lo > 200].index)
+
+# Get target label
+label = data_train["cardio"]
+# Drop target label and convert to numpy array
+data_train = data_train.drop("cardio", 1)
+label = np.array(label)
+data_train = np.array(data_train)
+
+# Normalization Process
+max_vals = np.max(data_train, 0)
+data_train = data_train / max_vals
