@@ -20,3 +20,14 @@ import matplotlib.pyplot as plt
 
 # Import Dataset
 dataset = pd.read_csv("https://github.com/AkhmadMuzanni/TestingBangkit/releases/download/1/cardio_train.csv")
+
+# DATA PREPARATION
+# Drop unnececsssary column
+data_train = dataset.drop(["id"], 1)
+
+# fix strange weight value
+weight = []
+for w in data_train["weight"]:
+  weight.append(int(w.split('.')[0]))
+data_train = data_train.drop(["weight"], 1)
+data_train["weight"] = weight
