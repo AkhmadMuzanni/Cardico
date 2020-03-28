@@ -5,7 +5,7 @@ Created on Fri Mar 27 16:28:45 2020
 @author: Bangkit Team
 """
 
-# Import Library
+# IMPORT LIBRARY
 import pandas as pd
 import numpy as np
 import os
@@ -18,16 +18,24 @@ from tensorflow.keras.optimizers import Adam, RMSprop
 from tensorflow.keras.utils import plot_model
 import matplotlib.pyplot as plt
 
-# Import Dataset
+# IMPORT DATASET
 dataset = pd.read_csv("https://github.com/AkhmadMuzanni/TestingBangkit/releases/download/1/cardio_train.csv")
 
 # DATA PREPARATION
 # Drop unnececsssary column
 data_train = dataset.drop(["id"], 1)
 
-# fix strange weight value
+# Fix strange weight value
 weight = []
 for w in data_train["weight"]:
   weight.append(int(w.split('.')[0]))
 data_train = data_train.drop(["weight"], 1)
 data_train["weight"] = weight
+
+# Fix strange attribute values
+# delete height value that above 220
+data_train = data_train.drop(data_train[data_train.height > 220].index)
+# delete systolic blood pressure value that above 250
+data_train = data_train.drop(data_train[data_train.ap_hi > 250].index)
+# delete diastolic blood pressure value that above 200
+data_train = data_train.drop(data_train[data_train.ap_lo > 200].index)
