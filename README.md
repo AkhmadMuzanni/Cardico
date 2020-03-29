@@ -91,10 +91,6 @@ Add additional notes about how to deploy this on a live system
 
 See also the list of [contributors](https://github.com/AkhmadMuzanni/Cardico/contributors) who participated in this project.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
 ## Acknowledgments
 
 * Bangk!t Program by Google ([Bangk!t](https://events.withgoogle.com/bangkit/))
