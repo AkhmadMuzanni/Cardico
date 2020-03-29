@@ -74,7 +74,7 @@ Based on the results from the test model, we get the value of precision, recall,
 
 ### Techniques
 
-We use Multi layer Perceptron that One of neural network model that may have many layer and neuron (Implement Tensorflows)
+We use Multi layer Perceptron that One of neural network model that may have many layer and neuron (Implement Tensorflow)
 
 
 ## Deployment
