@@ -95,3 +95,58 @@ plot_model(model,
 
 model.summary()
 model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
+
+#Train Model
+history = model.fit(X_train, Y_train, 
+                    validation_data=(x_test, y_test),
+                    batch_size=batch_size, 
+                    epochs=epochs, 
+                    verbose=2)
+
+#Visualize Training Result
+fig, ax = plt.subplots(1,2,figsize=(18,3))
+ax[0].plot(history.history["accuracy"])
+ax[0].plot(history.history["val_accuracy"])
+ax[0].set_title("Train and Validation Accuracy")
+ax[0].set_xlabel("Epochs")
+ax[0].set_ylabel("Accuracy")
+ax[0].legend(['Train', 'Validation'], loc='upper right')
+
+ax[1].plot(history.history["loss"])
+ax[1].plot(history.history["val_loss"])
+ax[1].set_title("Train and Validation Loss")
+ax[1].set_xlabel("Epochs")
+ax[1].set_ylabel("Loss")
+ax[1].legend(["Train", "Validation"], loc="upper right")
+plt.show()
+
+#Calculate Accuracy
+#Predict the data test
+output = model.predict(x_test)
+
+# calculate true positive, true negative, false positive, false negative
+true_positive = 0
+false_positive = 0
+true_negative = 0
+false_negative = 0
+for (real, pred) in zip(y_test, output):
+  if pred > 0.5: # hasil prediksi benar
+    if real == 1:
+      true_positive += 1
+    else:
+      false_positive += 1
+  else:
+    if real == 1:
+      false_negative += 1
+    else:
+      true_negative += 1
+
+#Precision and Recall
+precision = true_positive / (true_positive + false_positive)
+recall = true_positive / (true_positive + false_negative)
+print("Precision:", precision)
+print("Recall:", recall)
+
+#Accuracy
+akurasi = (true_positive + true_negative) / output.shape[0]
+print("Akurasi:", akurasi)
